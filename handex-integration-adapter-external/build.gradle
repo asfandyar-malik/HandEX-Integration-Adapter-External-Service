@@ -1,0 +1,69 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.2.RELEASE'
+        gradleDockerPluginVersion = '1.2'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("se.transmode.gradle:gradle-docker:${gradleDockerPluginVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = 'com.handex.handex-integration-adapter-external'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+    jcenter()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+ext {
+    keycloakVersion = '4.8.2.Final'
+    keycloakSpringBoot2StarterVersion = '4.0.0.Final'
+    set('springCloudVersion', 'Finchley.RELEASE')
+    forceRestApiVersion = '0.0.40'
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-aop"
+
+    implementation "org.springframework.security:spring-security-web"
+    implementation "org.springframework.security:spring-security-config"
+
+    implementation "org.springframework.cloud:spring-cloud-starter-config"
+    implementation "org.springframework.cloud:spring-cloud-starter-sleuth"
+    implementation "org.springframework.cloud:spring-cloud-starter-zipkin"
+
+    implementation "org.springframework.retry:spring-retry"
+
+    implementation "org.keycloak:keycloak-spring-security-adapter:${keycloakVersion}"
+    implementation "org.keycloak:keycloak-spring-boot-2-starter:${keycloakSpringBoot2StarterVersion}"
+
+    implementation "org.slf4j:slf4j-api:1.7.10"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.9.8"
+    implementation "commons-io:commons-io:2.6"
+    implementation "net.rossillo.mvc.cache:spring-mvc-cache-control:1.1.1-RELEASE"
+    implementation "com.frejo:force-rest-api:${forceRestApiVersion}"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+

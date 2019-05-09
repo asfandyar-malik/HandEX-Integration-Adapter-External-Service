@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: false
+    discovery:
+      enabled: false
+
+handex-integration-adapter-brex:
+  service:
+    code:
+      ticket:
+        url: http://handex-integration-adapter-brex.default.svc.cluster.local/handex-integration-adapter-brex/code/ticket
+    brex:
+      url: https://api.brex.io
+      user_key: a398c62b9c4ba2366d8511ce8fe8839d

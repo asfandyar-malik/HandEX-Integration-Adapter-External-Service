@@ -1,0 +1,15 @@
+server:
+  port: 80
+  servlet:
+    contextPath: /handex-integration-adapter-brex
+
+spring:
+  application:
+    name: handex-integration-adapter-brex
+  cloud:
+    config:
+      retry:
+        initialInterval: 2000
+        maxAttempts: 30
+      uri: ${ENV_URL_CONFIGSERVER}
+      failFast: true
